@@ -1,0 +1,116 @@
+Nome: João Pedro Barros
+Matrícula: 20232003300285
+Turma: CMP2108/A03
+Aula 19/11/2024
+
+Programa:
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainApp {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(MenuTela::new);
+    }
+}
+
+class MenuTela extends JFrame {
+    public MenuTela() {
+        setTitle("Menu Principal");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        setLayout(new GridLayout(3, 1));
+        JButton btnCadastro = new JButton("Cadastro");
+        JButton btnDisciplinas = new JButton("Disciplinas Matriculadas");
+        JButton btnSair = new JButton("Sair");
+
+        add(btnCadastro);
+        add(btnDisciplinas);
+        add(btnSair);
+
+        btnCadastro.addActionListener(e -> {
+            new CadastroTela();
+            dispose();
+        });
+
+        btnDisciplinas.addActionListener(e -> {
+            new DisciplinasTela();
+            dispose();
+        });
+
+        btnSair.addActionListener(e -> System.exit(0));
+
+        setVisible(true);
+    }
+}
+
+class CadastroTela extends JFrame {
+    public CadastroTela() {
+        setTitle("Cadastro");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        setLayout(new GridLayout(5, 2));
+        add(new JLabel("Nome:"));
+        JTextField txtNome = new JTextField();
+        add(txtNome);
+
+        add(new JLabel("Matrícula:"));
+        JTextField txtMatricula = new JTextField();
+        add(txtMatricula);
+
+        add(new JLabel("Curso:"));
+        JTextField txtCurso = new JTextField();
+        add(txtCurso);
+
+        JButton btnSalvar = new JButton("Salvar");
+        JButton btnVoltar = new JButton("Voltar");
+        add(btnSalvar);
+        add(btnVoltar);
+
+        btnSalvar.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        btnVoltar.addActionListener(e -> {
+            new MenuTela();
+            dispose();
+        });
+
+        setVisible(true);
+    }
+}
+
+class DisciplinasTela extends JFrame {
+    public DisciplinasTela() {
+        setTitle("Disciplinas Matriculadas");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        setLayout(new BorderLayout());
+        JList<String> listaDisciplinas = new JList<>(new String[]{
+                "Matemática",
+                "Física",
+                "Química",
+                "Programação"
+        });
+
+        add(new JScrollPane(listaDisciplinas), BorderLayout.CENTER);
+
+        JButton btnVoltar = new JButton("Voltar");
+        add(btnVoltar, BorderLayout.SOUTH);
+
+        btnVoltar.addActionListener(e -> {
+            new MenuTela();
+            dispose();
+        });
+
+        setVisible(true);
+    }
+}
